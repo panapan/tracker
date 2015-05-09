@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  # resources :users, only: [:new, :create, :edit, :update]
+
+  root 'pages#home'
+  # match '/signup', to: 'users#edit', via: 'get'
+  match '/about', to: 'pages#about', via: 'get'
+  match '/profile', to: 'users#profile', via: 'get'
+  match '/profile', to: 'users#save', via: 'patch'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
