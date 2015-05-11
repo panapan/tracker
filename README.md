@@ -1,4 +1,4 @@
 # Post tracking app
 
-[*This app on Heroku*](boiling-headland-6739.herokuapp.com)
+[*This app on Heroku*](http://postrack.herokuapp.com)
 

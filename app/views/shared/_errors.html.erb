@@ -1,12 +1,18 @@
 <% if object.errors.any? %>
-  <div id="error_explanation">
-    <div class="alert alert-error">
-      Обнаружено <%= pluralize_ru(object.errors.count, "ошибка", "ошибки", "ошибок") %>.
+
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Профиль не сохранен из за <%= pluralize_ru(object.errors.count, "ошибки", "ошибок", "ошибок") %>:
+        </h3>
     </div>
-    <ul>
-    <% object.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
+    <div class="panel-body">
+      <ul class="text-danger">
+        <% object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
+
 <% end %>

@@ -23,10 +23,14 @@ module UsersHelper
     end
   end
 
+  def anonymous?
+    current_user.nil? || current_user.email.nil? || current_user.email.empty?
+  end
+
   def pluralize_ru(cnt, c1, c2_4, c5_0)
     right_digit = cnt.to_s[-1].to_i
     c = c5_0
-    c = c2_4 if right_digit < 6 && right_digit > 0
+    c = c2_4 if right_digit < 5 && right_digit > 1
     c = c1 if right_digit == 1
     "#{cnt} #{c}"
   end

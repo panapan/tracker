@@ -4,6 +4,6 @@ ru:
       user:
         name: "Имя"
         email: "Aдрес Email"
-        notify: "Email уведомления об изменении статуса посылки"
+        notify: "Уведомлять об изменении статуса"
         password: Пароль
         password_confirmation: "Подтверждение пароля"

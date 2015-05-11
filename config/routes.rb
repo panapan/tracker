@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   match '/about', to: 'pages#about', via: 'get'
   match '/profile', to: 'users#profile', via: 'get'
   match '/profile', to: 'users#save', via: 'patch'
+  match '/login', to: 'users#login_form', via: 'get'
+  match '/login', to: 'users#login', via: 'post'
+  match '/login', to: 'users#logout', via: 'delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

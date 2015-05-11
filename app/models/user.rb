@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  before_save { email.downcase! }
+  before_save { email.downcase! unless email.nil? }
+  before_save { name.capitalize! unless name.nil? }
   has_secure_password
 
   validates :name, presence: true, length: { maximum: 50 }
