@@ -1,0 +1,5 @@
+<% unless parcel.new_record? %>
+  <div id = <%= "panel_#{parcel.id}" %>>
+    <%= render partial: 'parcels/parcel_inner', locals: {parcel: parcel} %>
+  </div>
+<% end %>

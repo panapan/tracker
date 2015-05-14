@@ -1,0 +1,2 @@
+// $("<%="#panel_#{@parcel.id}"%>").html("<%= escape_javascript(render(@parcel)) %>")
+$("<%="#panel_#{@parcel.id}"%>").html("<%= escape_javascript(render partial: 'parcel_inner', locals: {parcel: @parcel}) %>")

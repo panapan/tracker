@@ -1,4 +1,7 @@
 ru:
+  will_paginate:
+    next_label: "Далее"
+    previous_label: "Назад"
   activerecord:
     attributes:
       user:
@@ -7,3 +10,6 @@ ru:
         notify: "Уведомлять об изменении статуса"
         password: Пароль
         password_confirmation: "Подтверждение пароля"
+      parcel:
+        num: "Номер"
+        note: "Описание"

@@ -1,0 +1,28 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <%= form_for(parcel, html: {id: "edit_parcel_form"}, remote: true) do |f| %>
+            Описание:
+            <%= f.text_field :note, class: "flat-input" %>
+            Трек код: <%= parcel.num %>
+          <%= f.submit "Изменить", style: "display:none" %>
+        <% end %>
+    </div>
+
+    <div class="panel-body">
+      <ul>
+        <li> Отправитель: <%= parcel.from_loc %>, 
+          отправлено: <%= parcel.from_time %></li>
+        <li> Получатель: <%= parcel.to_loc %>, доставлено:
+          <%= parcel.delivered? ? parcel.to_time : 'еще нет' %></li>
+        <li> Служба доставки: <%= parcel.carrier %> </li>
+      </ul>
+      <span class="timestamp">
+        Добавлено <%= time_ago_in_words(parcel.created_at) 
+        %> назад.
+      </span>
+      <%= link_to "удалить", parcel, method: :delete,
+                                     data: { confirm: "Удалить?" },
+                                     title: parcel.num %>
+      <%= link_to "обновить", parcel, remote: true %>
+    </div>
+  </div>

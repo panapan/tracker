@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509105349) do
+ActiveRecord::Schema.define(version: 20150512085615) do
+
+  create_table "parcels", force: :cascade do |t|
+    t.string   "num"
+    t.string   "note"
+    t.string   "carrier"
+    t.boolean  "delivered"
+    t.string   "from_loc"
+    t.string   "to_loc"
+    t.datetime "from_time"
+    t.datetime "to_time"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "parcels", ["user_id", "created_at"], name: "index_parcels_on_user_id_and_created_at"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

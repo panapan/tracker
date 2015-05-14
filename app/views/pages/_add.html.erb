@@ -1,0 +1,12 @@
+<%= form_for(@parcel, url: parcels_path, html: {class: "form-inline", id: "add_parcel_form"}, remote: true) do |f| %>
+  <%= render 'shared/errors', object: f.object %>
+  <div class="form-group">
+    <%= f.label :num, class: "control-label" %>
+    <%= f.text_field :num, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :note, class: "control-label" %>
+    <%= f.text_field :note, class: "form-control" %>
+  </div>
+  <%= f.submit "Добавить", class: "btn btn-default" %>
+<% end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :parcels, only: [:create, :update, :destroy, :show]
   # resources :users, only: [:new, :create, :edit, :update]
 
   root 'pages#home'

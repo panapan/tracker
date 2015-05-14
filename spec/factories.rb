@@ -9,4 +9,9 @@ FactoryGirl.define do
       notify true
     end
   end
+
+  factory :parcel do
+    num "123456789ABCD"
+    user
+  end
 end

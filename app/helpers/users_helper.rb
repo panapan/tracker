@@ -23,8 +23,17 @@ module UsersHelper
     end
   end
 
+  def current_or_new
+    user = current_user
+    user ||=  User.new()
+  end
+
   def anonymous?
     current_user.nil? || current_user.email.nil? || current_user.email.empty?
+  end
+
+  def parcels_cnt
+    current_user.nil? ? 0 : current_user.parcels.count()
   end
 
   def pluralize_ru(cnt, c1, c2_4, c5_0)
