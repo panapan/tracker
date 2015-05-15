@@ -19,6 +19,40 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def recovery_form
+    @user = User.new
+  end
+
+  def recovery
+    user = User.find_by(email: params[:user][:email].downcase)
+    if user
+      recovery_code = self.recovery_token(user)
+      UserMailer.send_recovery_code(user, recovery_code).deliver_now
+    end
+    flash[:info] = "Запрос обрабатывается, дальнейшие инструкции ищите в электронной почте"
+    #{recovery_url(id: recovery_code)}
+    redirect_to root_url
+  end
+
+  def new_password_form
+    @token=params[:id]
+    @user = User.new
+  end
+
+  def new_password
+    @token = params[:token]
+    @user = user_by_token(@token)
+    if !@user.nil? && @user.recovery_time > 1.day.ago &&
+        @user.update_attributes(user_params)
+      self.current_user = (@user)
+      flash[:success] = "Вход с новым паролем осуществлен"
+      redirect_to root_url
+    else
+      @user = User.new
+      render 'new_password_form'
+    end
+  end
+
   def login
     user = User.find_by(email: params[:user][:email].downcase)
     if user && user.authenticate(params[:user][:password])

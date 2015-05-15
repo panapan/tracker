@@ -1,0 +1,5 @@
+<%= tag 'tr', (track.updated_at > 10.minute.ago) ? {class: 'warning'} : nil, open: true%>
+  <td> <%= track.date_time.strftime '%d.%m.%y %H:%M' %> </td>
+  <td> <%= track.geo %> </td>
+  <td> <%= track.event %> </td>
+</tr>

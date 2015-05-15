@@ -1,3 +1,9 @@
+require 'open-uri'
+http://[ems|usps|dhl|tnt|fedex|spsr].postabot.ru/[номер отправления]
+xml=open("http://postabot.ru/tr/tracker2.php?track-number=11740378009514&carrier=ems").read
+hash=Hash.from_xml(xml)
+hash["response"]["track_number"]["items"]['item']['tracking']['track'].each {|e| puts e['event']}
+
  {"response"=>
   {"track_number"=>
     {"id"=>"11740378009514", "carrier"=>"EMS", "count"=>"1", "items"=>
@@ -22,8 +28,36 @@
   }
 }
 
-require 'open-uri'
-http://[ems|usps|dhl|tnt|fedex|spsr].postabot.ru/[номер отправления]
-xml=open("http://postabot.ru/tr/tracker2.php?track-number=11740378009514&carrier=ems").read
-hash=Hash.from_xml(xml)
-hash["response"]["track_number"]["items"]['item']['tracking']['track'].each {|e| puts e['event']}
+выкинул из _parsel_inner:
+
+      <ul>
+        <li> Отправитель: <%= parcel.from_loc %>, 
+          отправлено: <%= parcel.from_time.strftime('%d.%m.%y %H:%M') unless parcel.from_time.nil? %></li>
+        <li> Получатель: <%= parcel.to_loc %>, доставлено:
+          <%= parcel.delivered? ? parcel.to_time.strftime('%d.%m.%y %H:%M') : 'еще нет' %></li>
+        <li> Служба доставки: <%= parcel.carrier %> </li>
+        <li> Добавлено <%= time_ago_in_words(parcel.created_at) 
+          %> назад. </ul>
+      </ul>
+
+        <thead> <tr>
+          <th> Дата </th>
+          <th> Место </th>
+          <th> Событие </th>
+        </tr> </thead>
+
+      <%= link_to "развернуть", "#collapse#{parcel.id}", 
+      {"data-target" => "#collapse#{parcel.id}", "data-toggle" => "collapse", class: "collapsed"}  %>
+
+          <% @first = true %>
+          <%= render parcel.tracks %>
+          <%= tag('/div', nil, true) unless @first %>
+
+_track:
+
+<% if @first then %>
+  </table>
+  <%= tag("div", {id: "collapse#{track.parcel.id}", class: "panel-collapse collapse"}, true)  %>
+  <% @first = false %>
+  <table class="table table-condensed">
+<% end %>

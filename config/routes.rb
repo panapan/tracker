@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   match '/login', to: 'users#login_form', via: 'get'
   match '/login', to: 'users#login', via: 'post'
   match '/login', to: 'users#logout', via: 'delete'
+  match '/recovery/new', to: 'users#recovery_form', via: 'get'
+  match '/recovery', to: 'users#recovery', via: 'post'
+  match '/recovery', to: 'users#new_password_form', via: 'get'
+  match '/recovery', to: 'users#new_password', via: 'patch'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

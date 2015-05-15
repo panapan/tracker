@@ -11,5 +11,5 @@ ru:
         password: Пароль
         password_confirmation: "Подтверждение пароля"
       parcel:
-        num: "Номер"
+        num: "Трек код"
         note: "Описание"

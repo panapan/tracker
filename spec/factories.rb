@@ -11,7 +11,12 @@ FactoryGirl.define do
   end
 
   factory :parcel do
-    num "123456789ABCD"
+    sequence(:num) { |n| "123456789#{n}"}
     user
+  end
+
+  factory :track do
+    sequence(:track_id) {|n| n}
+    parcel
   end
 end

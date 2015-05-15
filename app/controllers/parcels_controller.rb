@@ -5,6 +5,7 @@ class ParcelsController < ApplicationController
     self.current_user ||= User.new()
     @parcel = self.current_user.parcels.build(parcel_params)
     if @parcel.save
+      @parcel.query()
       flash[:warning] = 
         "Зарегистрируйтесь, чтобы не потерять добавленные посылки" if
         self.anonymous?
@@ -26,7 +27,7 @@ class ParcelsController < ApplicationController
   end
 
   def show #used to refresh parcel status
-    @parcel.note += '_ajacs'
+    @parcel.query()
     # @parcel.save
       respond_to do |format|
         format.html {redirect_to root_path}
@@ -36,8 +37,8 @@ class ParcelsController < ApplicationController
 
   end
 
-  def update #used to update note field
-    @parcel.update_attributes(params.require(:parcel).permit(:note))
+  def update #used to update note and collapsed fields
+    @parcel.update_attributes(params.require(:parcel).permit(:note, :expanded))
       respond_to do |format|
         format.html {redirect_to root_path}
         format.js

@@ -1,11 +1,11 @@
 <% provide(:title, '') %>
-<h1>Новое отправление для отслеживания</h1>
+<h1>Проверить статус посылки</h1>
 <%= render 'pages/add' %>
 
-<h1>Отслеживаемые отправления</h1>
-<% unless @parcels.nil? %>
-    <%= render @parcels %>
-  <%= will_paginate @parcels, params: {controller: 'pages', action: 'home'} %>
-<% else %>
+<h1>Ваши посылки</h1>
+<% if @parcels.nil? || @parcels.count == 0  %>
   <p>Пользователь еще не добавил ни одной посылки для отслеживания</p>
+<% else %>
+  <%= render @parcels %>
+  <%= will_paginate @parcels, params: {controller: 'pages', action: 'home'} %>
 <% end %>

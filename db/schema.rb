@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512085615) do
+ActiveRecord::Schema.define(version: 20150515141610) do
 
   create_table "parcels", force: :cascade do |t|
     t.string   "num"
@@ -25,9 +25,22 @@ ActiveRecord::Schema.define(version: 20150512085615) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "expanded"
   end
 
   add_index "parcels", ["user_id", "created_at"], name: "index_parcels_on_user_id_and_created_at"
+
+  create_table "tracks", force: :cascade do |t|
+    t.integer  "track_id"
+    t.datetime "date_time"
+    t.string   "geo"
+    t.string   "event"
+    t.integer  "parcel_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tracks", ["parcel_id", "track_id"], name: "index_tracks_on_parcel_id_and_track_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -37,6 +50,8 @@ ActiveRecord::Schema.define(version: 20150512085615) do
     t.string   "remember_token"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.datetime "recovery_time"
+    t.datetime "last_queryed"
   end
 
   add_index "users", ["email"], name: "index_users_on_email"

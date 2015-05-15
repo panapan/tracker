@@ -13,6 +13,17 @@ module UsersHelper
     @current_user = user
   end
 
+  def recovery_token(user)
+    token = new_token
+    user.update_attribute(:remember_token, encrypt(token))
+    user.update_attribute(:recovery_time, Time.now())
+    token
+  end
+
+  def user_by_token(token)
+    User.find_by(remember_token: encrypt(token))
+  end
+
   # Restore user from cookies, nil if was not saved
   def current_user
     if @current_user.nil?

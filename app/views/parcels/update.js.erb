@@ -1,1 +1,1 @@
-$("#params").html("<%= escape_javascript(debug params) %>")
+$("<%="#panel_#{@parcel.id}"%>").html("<%= escape_javascript(render partial: 'parcel_inner', locals: {parcel: @parcel}) %>")
