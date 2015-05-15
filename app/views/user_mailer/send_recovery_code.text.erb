@@ -1,7 +1,9 @@
   Добрый день, <%= @user.name%>!
 
   Для изменения пароля на сайте Tracknum перейдите по ссылке:
-<%= recovery_url(@code) %>
+
+<%= recovery_url(id: @code) %>
+
 Ваш контрольный код : <%= @code %>
 
 = С уважением, panapan@yandex.ru =

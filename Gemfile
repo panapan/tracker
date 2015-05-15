@@ -34,6 +34,9 @@ gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+# env variables
+gem "figaro"
+
 group :development, :test do
   gem 'rspec-rails' #, '2.13.1'
   # Use sqlite3 as the database for Active Record

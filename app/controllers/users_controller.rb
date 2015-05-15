@@ -16,7 +16,30 @@ class UsersController < ApplicationController
   end
 
   def login_form
+    # redirect_to root_url 
     @user = User.new
+  end
+
+  def login
+    user = User.find_by(email: params[:user][:email].downcase)
+    if user && user.authenticate(params[:user][:password])
+      self.current_user.destroy unless self.current_user.nil?
+      self.current_user = user
+      flash[:success] = "Добро пожаловать, #{user.name}!"
+      redirect_to root_url
+    else
+      flash.now[:danger] = 'Неверная пара логин-пароль '
+      @user = User.new(user_params)
+      render 'login_form'
+      # flash[:danger] = 'Неверная пара логин-пароль '
+      # redirect_to login_url
+    end
+  end
+
+  def logout
+    self.current_user = nil
+    flash[:info] = "Спасибо из использование сервиса, ждем Вас снова!"
+    redirect_to root_url
   end
 
   def recovery_form
@@ -51,28 +74,6 @@ class UsersController < ApplicationController
       @user = User.new
       render 'new_password_form'
     end
-  end
-
-  def login
-    user = User.find_by(email: params[:user][:email].downcase)
-    if user && user.authenticate(params[:user][:password])
-      self.current_user.destroy unless self.current_user.nil?
-      self.current_user = user
-      flash[:success] = "Добро пожаловать, #{user.name}!"
-      redirect_to root_url
-    else
-      flash.now[:danger] = 'Неверная пара логин-пароль '
-      @user = User.new(user_params)
-      render 'login_form'
-      # flash[:danger] = 'Неверная пара логин-пароль '
-      # redirect_to login_url
-    end
-  end
-
-  def logout
-    self.current_user = nil
-    flash[:info] = "Спасибо из использование сервиса, ждем Вас снова!"
-    redirect_to root_url
   end
 
   private
