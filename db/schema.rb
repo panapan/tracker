@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515141610) do
+ActiveRecord::Schema.define(version: 20150516133312) do
 
   create_table "parcels", force: :cascade do |t|
     t.string   "num"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150515141610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean  "expanded"
+    t.datetime "queryed"
   end
 
   add_index "parcels", ["user_id", "created_at"], name: "index_parcels_on_user_id_and_created_at"
@@ -51,7 +52,6 @@ ActiveRecord::Schema.define(version: 20150515141610) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.datetime "recovery_time"
-    t.datetime "last_queryed"
   end
 
   add_index "users", ["email"], name: "index_users_on_email"

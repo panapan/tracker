@@ -54,4 +54,16 @@ describe "Users" do
       it { should have_selector('div.alert.alert-info', text: "Спасибо из использование сервиса, ждем Вас снова!")}
     end
   end
+
+  describe "russian letters bug" do
+    before do
+      visit root_path
+      fill_in 'parcel_num', with: "123456789ф"
+      click_button 'Проверить'
+      fill_in 'parcel_num', with: "123456789ф"
+      click_button 'Проверить'
+    end
+    it { should_not have_selector('Трек код уже существует')}
+  end
+
 end

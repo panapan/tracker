@@ -6,18 +6,20 @@ class Parcel < ActiveRecord::Base
   validates :user_id, presence: true
   validates :num, presence: true, length: { minimum: 9, maximum: 14 },
    uniqueness: {scope: :user_id, case_sensitive: false},
-   format: { with: /[a-z\d]+/i, message: 'Только английские буквы и цифры'}
+   format: { with: /\A[a-z\d]+\z/i, message: 'Только английские буквы и цифры'}
     
     before_save { num.upcase! unless num.nil? }
 
   def query
     require 'open-uri'
+    new_status = false
     xml = open("http://postabot.ru/tr/tracker2.php?track-number=#{self.num}&carrier=ems").read
     hash = Hash.from_xml(xml)
     track = hash["response"]["track_number"]
     return if track['count'] == '0'
 
     item = track['items']['item']
+    self.queryed = Time.now
     self.update_attributes( carrier: track['carrier'],
                             from_loc: item['routeStartLoc']['value'],
                             to_loc: item['routeEndLoc']['value'],
@@ -39,9 +41,14 @@ class Parcel < ActiveRecord::Base
                 geo: item["geo"],
                 event: item["event"]}
       find_item = self.tracks.find_by(tracks: params)
-      self.tracks.create(params) if find_item.nil?
+      if find_item.nil?
+        self.tracks.create(params) 
+        new_status = true
+      end
     end
+    return new_status
   end
+
 private
 
 end

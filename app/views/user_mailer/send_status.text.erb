@@ -1,0 +1,10 @@
+  Добрый день, <%= @user.name%>!
+
+  Новый статус Вашей посылки <%= @parcel.note %> <%= @parcel.num %> :
+  -дата   <%= @track.date_time.strftime '%d.%m.%y %H:%M' %>
+  -место  <%= @track.geo %>
+  -статус <%= @track.event %>
+
+  Подробнее на <%= root_url %>
+
+= С уважением, Postrack =
