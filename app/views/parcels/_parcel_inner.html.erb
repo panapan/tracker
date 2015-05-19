@@ -1,36 +1,40 @@
+<span class = 'pull-right panel-heading'>
 
-    <span class = 'pull-right'>
-      <%= link_to 'удалить', parcel, method: :delete,
-                                     data: { confirm: "Удалить?" },
-                                     title: parcel.num %> :
-      <%= link_to "проверить", parcel, remote: true, title: 'Обновить статус трека из почтовых систем'%> :
-      <%= link_to("подробно", parcel_path(parcel, :parcel => {expanded: !parcel.expanded}), remote: true, title: 'Показать или скрыть все состояния', method: 'put') %> &nbsp
-    </span>
- 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-        <%= form_for(parcel, html: {id: "edit_parcel_form"}, remote: true) do |f| %>
-            <!-- Описание -->
-            <%= f.text_field :note, class: "flat-input" %>
-            Трек № <%= parcel.num %>
-          <%= f.submit "Изменить", style: "display:none" %>
-        <% end %>
-    </div>
+  <%= link_to parcel, method: :delete,
+                      data: { confirm: "Удалить?" },
+                      title: "Удалить" do %>
+    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><% end %>
 
-    <!-- <div class="panel-body"> -->
+  <%= link_to parcel, remote: true, title: 'Обновить статус трека из почтовых систем' do %>
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><% end %>
 
-      <table class="table table-condensed">
-        <tbody>
-          <% if parcel.tracks.first.nil? then %>
-            &nbsp Нет данных
-          <% else %>
-            <%= render parcel.tracks.last unless parcel.expanded? %>
-            <%= render parcel.tracks if parcel.expanded?%>
-          <% end %>
+  <%= link_to parcel_path(parcel, :parcel => {expanded: !parcel.expanded}), remote: true, title: 'Свернуть/развернуть', method: 'put' do  %>
+      <% if parcel.expanded? %>
+        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span><% else %>
+        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span><% end %><% end %>
+</span>
 
-        </tbody>
-      </table>
-
-
-    <!-- </div> -->
+<div class="panel panel-info">
+  <div class="panel-heading">
+      <%= form_for(parcel, html: {id: "edit_parcel_form"}, remote: true) do |f| %>
+          <!-- Описание -->
+          <%= f.text_field :note, class: "flat-input" %>
+          Трек № <%= parcel.num %>
+        <%= f.submit "Изменить", style: "display:none" %>
+      <% end %>
   </div>
+
+  <!-- <div class="panel-body"> -->
+    <table class="table table-condensed">
+      <tbody>
+        <% if parcel.tracks.first.nil? then %>
+          &nbsp Нет данных
+        <% else %>
+          <%= render parcel.tracks.last unless parcel.expanded? %>
+          <%= render parcel.tracks if parcel.expanded?%>
+        <% end %>
+
+      </tbody>
+    </table>
+  <!-- </div> -->
+</div>

@@ -1,3 +1,4 @@
+@import "bootstrap-sprockets";
 @import "bootstrap";
 
 body {
@@ -25,4 +26,35 @@ footer {
 
 h1 {
   border-bottom: 1px solid #EEE;
+}
+
+#loading-indicator {
+  display:none;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  /*z-index:1000*/
+ }
+
+.alert-danger:before, .panel-danger .panel-heading .panel-title:before {
+  font-family: "Glyphicons Halflings";
+  content: " ";
+}
+
+.alert-info:before{
+  font-family: "Glyphicons Halflings";
+  content: " ";
+}
+
+.alert-success:before{
+  font-family: "Glyphicons Halflings";
+  content: " ";
+}
+
+.alert-warning:before{
+  font-family: "Glyphicons Halflings";
+  content: " ";
 }
